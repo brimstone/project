@@ -1,3 +1,8 @@
 # TODO Check for vcs
+
+vcs_check() {
+	echo "Checking for vcs"
 # TODO Check for remote vcs
-# vim: filetype=bash
+}
+
+# vim: filetype=sh
