@@ -1,0 +1,3 @@
+echo $verbs
+
+# vim: filetype=sh
