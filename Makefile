@@ -1,6 +1,6 @@
 project: header modules/*
-	@cat header > project
-	@$(foreach file,modules/*, cat $(file) >> project)
+	@grep -vh "^# " header > project
+	@$(foreach file,modules/*, grep -vh "^# " $(file) >> project)
 	@chmod 755 project
 
 clean:
