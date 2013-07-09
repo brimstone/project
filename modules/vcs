@@ -1,5 +1,7 @@
 # TODO Check for vcs
 
+register vcs vcs_check
+
 vcs_check() {
 	echo "Checking for vcs"
 # TODO Check for remote vcs
