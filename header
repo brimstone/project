@@ -1,0 +1,2 @@
+#!/bin/bash
+# we'll go with bash as that will give us array support
