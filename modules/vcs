@@ -1,1 +1,3 @@
-echo "Check for vcs"
+# TODO Check for vcs
+# TODO Check for remote vcs
+# vim: filetype=bash
