@@ -1,4 +1,4 @@
-project: header modules/*
+project: header footer modules/*
 	@grep -vh "^# " header > project
 	@$(foreach file,modules/*, grep -vh "^# " $(file) >> project)
 	@grep -vh "^# " footer >> project
