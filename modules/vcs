@@ -3,7 +3,13 @@
 register vcs vcs_check
 
 vcs_check() {
-	echo "Checking for vcs"
+	check "Checking for VCS"
+	if git branch >/dev/null 2>/dev/null; then
+		pass
+	else
+		fail
+		return -1
+	fi
 # TODO Check for remote vcs
 }
 
