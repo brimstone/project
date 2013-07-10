@@ -1,3 +1,28 @@
-echo $verbs
+# check if we're run without arguments and need to run every test
+if [ $# = 0 ]; then
+	# run every verbfunc
+	for ((verbi=0;verbi<="${#verbs[*]}";verbi++)); do
+		${verbfuncs[$verbi]}
+	done
+	exit
+fi
+
+# check for a help message
+if [ "$1" = "-h" ]; then
+	echo "Usage: $0 <test>"
+	echo "List of supported tests:"
+	for ((verbi=0;verbi<="${#verbs[*]}";verbi++)); do
+		echo "	${verbs[$verbi]}"
+	done
+fi
+
+# set a flag to see if we did something
+for ((verbi=0;verbi<="${#verbs[*]}";verbi++)); do
+	if [ "${verbs[$verbi]}" = "$1" ]; then
+		${verbfuncs[$verbi]}
+		# exit with the return value of our function
+		exit $?
+	fi
+done
 
 # vim: filetype=sh

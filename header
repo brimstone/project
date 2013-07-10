@@ -2,11 +2,28 @@
 # we'll go with bash as that will give us array support
 
 declare -a verbs=()
+declare -a verbfuncs=()
 
 register() {
+	if [ "$#" != 2 ]; then
+		echo "Usage: register verb verbfunction"
+	fi
 	verb="$1"
-	shift
+	verbfunc="$2"
 	verbs[${#verbs[*]}]="$verb"
+	verbfuncs[${#verbfuncs[*]}]="$verbfunc"
+}
+
+check() {
+	printf "$1... "
+}
+
+pass() {
+	printf "[ PASS ]\n"
+}
+
+fail() {
+	printf "[ FAIL ]\n"
 }
 
 # vim: filetype=sh
