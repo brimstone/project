@@ -1,4 +1,4 @@
-# TODO Check for vcs
+# Check for vcs
 
 register vcs vcs_check
 
