@@ -1,2 +1,14 @@
-# TODO Write this to list TODOs in every file or only the current directory of a project
+# Write this to list TODOs in every file or only the current directory of a project
+register todo todo_check
+
+todo_check() {
+	check "Checking for TODOs"
+	todos=$(grep -rI -m 1 TODO 2>/dev/null | wc -l)
+	if [ "$todos" -gt 0 ]; then
+		fail
+		grep -rI TODO
+		return 1
+	fi
+	pass
+}
 # vim: filetype=sh
