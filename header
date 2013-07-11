@@ -19,11 +19,11 @@ check() {
 }
 
 pass() {
-	printf "[ PASS ]\n"
+	printf "[ \e[32mPASS\e[0m ]\n"
 }
 
 fail() {
-	printf "[ FAIL ]\n"
+	printf "[ \e[31mFAIL\e[0m ]\n"
 }
 
 # vim: filetype=sh
