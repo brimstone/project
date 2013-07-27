@@ -4,6 +4,10 @@
 #agpl = same as gpl but also protect things that dont get distributed like webservices 
 #lgpl = its cool to use as part of  a proprietary thing just make sure any changes to our library go back to public
 
+# http://choosealicense.com/
+# http://opensource.org/licenses/
+
+
 register license license_check
 license_check() {
 	check "Checking for license"
