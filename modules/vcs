@@ -4,13 +4,21 @@ register vcs vcs_check
 
 vcs_check() {
 	check "Checking for VCS"
-	if git branch >/dev/null 2>/dev/null; then
+	if git branch &>/dev/null; then
+		pass
+		check "Checking for Remote VCS"
+		if [ $(git remote -v | wc -l) -gt 0 ]; then
+			pass
+		else
+			fail
+			return -1
+		fi
+	elif svn info &>/dev/null; then
 		pass
 	else
 		fail
 		return -1
 	fi
-# TODO Check for remote vcs
 }
 
 # vim: filetype=sh

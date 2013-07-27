@@ -1,14 +1,13 @@
 # Write this to list TODOs in every file or only the current directory of a project
 register todo todo_check
-
 todo_check() {
-	check "Checking for TODOs"
-	todos=$(grep -rI -m 1 TODO 2>/dev/null | wc -l)
+	check "Checking for TOD""Os"
+	todos=$(grep -rI -m 1 TOD[O] --exclude-dir=.git --exclude-dir=.svn 2>/dev/null | wc -l)
 	if [ "$todos" -gt 0 ]; then
 		fail
-		grep -rI TODO
-		return 1
+		grep -rI TOD[O] --exclude-dir=.git --exclude-dir=.svn
+	else
+		pass
 	fi
-	pass
 }
 # vim: filetype=sh

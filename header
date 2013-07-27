@@ -15,7 +15,7 @@ register() {
 }
 
 check() {
-	printf "$1... "
+	printf "%-72s" "${1:0:72}"
 }
 
 pass() {
