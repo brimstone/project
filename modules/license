@@ -8,12 +8,38 @@
 # http://opensource.org/licenses/
 
 
-register license license_check
+declare -a license
+declare -a licensedesc
+add_license() {
+	license[${#license[*]}]="$1"
+	licensedesc[${#licensedesc[*]}]="$2"
+}
 license_check() {
 	if [ -z "$1" ]; then
 		check "Checking for license"
 		[ -s LICENSE -o -s LICENSE.txt ] && pass || fail && return 1
+		return
+	fi
+
+	add_license "bsd" "do whatever with it but leave my copyright notice"
+	add_license "gpl" "must remain free to the people you distribute to and sme applies to them"
+	add_license "agpl" "same as gpl but also protect things that dont get distributed like webservices"
+	add_license "lgpl" "its cool to use as part of  a proprietary thing just make sure any changes to our library go back to public"
+
+	if [ "$1" = "add" ]; then
+		if [ -z "$2" ]; then
+			printf "Supported licenses are:"
+			for ((i=0;i<="${#license[*]}";i++)); do
+				printf " ${license[$i]}"
+			done
+			echo
+			return
+		fi
+		echo "This is not legal advice, meerly a simple description for the layperson about the $2 license:"
+		#echo "${licensedesc[$2]}"
+		return
 	fi
 }
+register license license_check
 
 # vim: filetype=sh
