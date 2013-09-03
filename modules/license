@@ -10,9 +10,10 @@
 
 register license license_check
 license_check() {
-	check "Checking for license"
-	[ -s LICENSE -o -s LICENSE.txt ] && fail && return 1
-	pass
+	if [ -z "$1" ]; then
+		check "Checking for license"
+		[ -s LICENSE -o -s LICENSE.txt ] && pass || fail && return 1
+	fi
 }
 
 # vim: filetype=sh
