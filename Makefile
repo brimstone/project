@@ -1,7 +1,8 @@
 project: header footer modules/*
-	@grep -vh "^# " header > project
-	@$(foreach file,modules/*, grep -vh "^# " $(file) >> project)
-	@grep -vh "^# " footer >> project
+	@grep -vhE "^#[^!]" header > project
+	@$(foreach file,modules/*, grep -vhE "^#" $(file) >> project)
+	@grep -vhE "^#" footer >> project
+	@sed -i"" -e "/^\$$/d" project
 	@chmod 755 project
 
 clean:
