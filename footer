@@ -22,9 +22,11 @@ if [ "$1" = "-h" ]; then
 fi
 
 # set a flag to see if we did something
+action="$1"
+shift
 for ((verbi=0;verbi<="${#verbs[*]}";verbi++)); do
-	if [ "${verbs[$verbi]}" = "$1" ]; then
-		${verbfuncs[$verbi]}
+	if [ "${verbs[$verbi]}" = "$action" ]; then
+		${verbfuncs[$verbi]} "$@"
 		# exit with the return value of our function
 		exit $?
 	fi
