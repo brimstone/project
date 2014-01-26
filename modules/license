@@ -8,11 +8,14 @@
 # http://opensource.org/licenses/
 
 
-declare -a license
-declare -a licensedesc
+declare -A license=()
+declare -A licensedesc=()
+declare -A licenseurl=()
+declare -A licensetext=()
 add_license() {
 	license[${#license[*]}]="$1"
-	licensedesc[${#licensedesc[*]}]="$2"
+	licenseurl[$1]="$2"
+	licensedesc[$1]="$3"
 }
 license_check() {
 	if [ -z "$1" ]; then
@@ -21,10 +24,11 @@ license_check() {
 		return
 	fi
 
-	add_license "bsd" "do whatever with it but leave my copyright notice"
-	add_license "gpl" "must remain free to the people you distribute to and sme applies to them"
-	add_license "agpl" "same as gpl but also protect things that dont get distributed like webservices"
-	add_license "lgpl" "its cool to use as part of  a proprietary thing just make sure any changes to our library go back to public"
+	add_license "bsd" "-" "do whatever with it but leave my copyright notice"
+	add_license "gplv2" "https://www.gnu.org/licenses/gpl-2.0.txt" "Must remain free to the people you distribute to and same applies to them."
+	add_license "gplv3" "https://www.gnu.org/licenses/gpl.txt" "Must remain free to the people you distribute to and same applies to them."
+	add_license "agpl" "https://www.gnu.org/licenses/agpl-3.0.txt" "Same as gpl but also protect things that dont get distributed like webservices."
+	add_license "lgpl" "https://www.gnu.org/licenses/lgpl.txt" "It's cool to use as part of a proprietary thing just make sure any changes to our library go back to public."
 
 	if [ "$1" = "add" ]; then
 		if [ -z "$2" ]; then
@@ -36,10 +40,43 @@ license_check() {
 			return
 		fi
 		echo "This is not legal advice, meerly a simple description for the layperson about the $2 license:"
-		#echo "${licensedesc[$2]}"
+		echo
+		echo "${licensedesc[$2]}"
+		echo
+		if [ "${licenseurl[$2]}" = "-" ]; then
+			echo "${licensetext[$2]}" > LICENSE
+		else
+			wget "${licenseurl[$2]}" -O LICENSE
+		fi
+
 		return
 	fi
 }
 register license license_check
+
+licensetext[bsd]="Copyright (c) $(date +%Y), <copyright holder>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the <organization> nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 
 # vim: filetype=sh
