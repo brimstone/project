@@ -18,7 +18,7 @@ register() {
 	verbfuncs[$nextverb]="$verbfunc"
 	verbauto[$nextverb]="true"
 	while shift; do
-		if [ "$1" == "noauto" ]; then
+		if [ "$1" = "noauto" ]; then
 			verbauto[$nextverb]="false"
 		fi
 	done

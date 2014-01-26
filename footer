@@ -2,7 +2,7 @@
 if [ $# = 0 ]; then
 	# run every verbfunc
 	for ((verbi=0;verbi<="${#verbs[*]}";verbi++)); do
-		if [ "${verbauto[$verbi]}" == "true" ]; then
+		if [ "${verbauto[$verbi]}" = "true" ]; then
 			${verbfuncs[$verbi]}
 		fi
 		# if we get an exit code, bail
