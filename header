@@ -3,15 +3,25 @@
 
 declare -a verbs=()
 declare -a verbfuncs=()
+declare -a verbauto=()
 
 register() {
-	if [ "$#" != 2 ]; then
-		echo "Usage: register verb verbfunction"
+	if [ "$#" != 2 -a "$#" != 3 ]; then
+		echo "Usage: register verb verbfunction [flags]"
+		return
 	fi
 	verb="$1"
 	verbfunc="$2"
-	verbs[${#verbs[*]}]="$verb"
-	verbfuncs[${#verbfuncs[*]}]="$verbfunc"
+	nextverb=${#verbs[*]}
+	shift
+	verbs[$nextverb]="$verb"
+	verbfuncs[$nextverb]="$verbfunc"
+	verbauto[$nextverb]="true"
+	while shift; do
+		if [ "$1" == "noauto" ]; then
+			verbauto[$nextverb]="false"
+		fi
+	done
 }
 
 check() {
