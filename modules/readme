@@ -1,0 +1,23 @@
+register readme readme_check
+
+readme_check () {
+	check "Checking for README or README.md"
+	if [ -e README -o -e README.md ]; then
+		pass
+		return
+	fi
+	fail
+	echo "Installing sample README.md"
+	(
+	echo "# $(basename "$PWD")"
+	echo "[Description of $(basename "$PWD")]"
+	echo ""
+	echo "## Requirements"
+	echo ""
+	echo "## Installation"
+	echo ""
+	echo "## Usage"
+	) > README.md
+}
+
+# vim: filetype=sh
