@@ -20,8 +20,12 @@ add_license() {
 license_check() {
 	if [ -z "$1" ]; then
 		check "Checking for license"
-		[ -s LICENSE -o -s LICENSE.txt ] && pass || fail && return 1
-		return
+		if [ -s LICENSE -o -s LICENSE.txt ]; then
+			pass
+			return
+		fi
+		fail
+		return 1
 	fi
 
 	add_license "bsd" "-" "do whatever with it but leave my copyright notice"
