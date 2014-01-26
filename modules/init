@@ -1,0 +1,49 @@
+# Initialize new project
+
+register init init_project noauto
+
+clone_project() {
+	check "Cloning from $1"
+	git clone -q "$1" . </dev/null >/dev/null 2>/dev/null
+	ret=$?
+	if [ $ret = 0 ]; then
+		pass
+	else
+		fail
+	fi
+	return $ret
+}
+
+
+init_project() {
+	# we need at least 1 argument, the name of the repo to clone for the project
+	if [ -z "$1" ]; then
+		echo "You must pass in the name of the repo to use as a template."
+		return
+	fi
+	# hold this for later, shift off the rest
+	template="$1"
+	shift
+	# check for a / in the template name
+	case "$template" in
+		*/* )
+			clone_project "ssh://git@github.com/${template}.git"
+			ret=$?
+		;;
+		# else, make some guesses
+		* )
+			clone_project "ssh://git@github.com/$USER/project-${template}.git" || \
+			clone_project "ssh://git@github.com/$USER/${template}-project.git" || \
+			clone_project "ssh://git@github.com/$USER/${template}.git"
+			ret=$?
+		;;
+	esac
+	# if we have an error, let the user know then bail
+	if [ $ret != 0 ]; then
+		echo "Unable to clone ${template}. Check the spelling and try again."
+		return
+	fi
+	# if we have an initalization script, run that now
+	[ -x ".project/init" ] && .project/init $@
+}
+# vim: filetype=sh
