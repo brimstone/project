@@ -25,15 +25,17 @@ register() {
 }
 
 check() {
-	printf "%-72s" "${1:0:72}"
+	printf "    %-72s" "${1:0:72}"
 }
 
 pass() {
-	printf "[ \e[32mPASS\e[0m ]\n"
+	#printf "[ \e[32mPASS\e[0m ]\n"
+	printf "\r\e[32m[✔]\e[0m\n"
 }
 
 fail() {
-	printf "[ \e[31mFAIL\e[0m ]\n"
+	#printf "[ \e[31mFAIL\e[0m ]\n"
+	printf "\r\e[31m[✘]\e[0m\n"
 }
 
 # vim: filetype=sh
