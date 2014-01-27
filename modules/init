@@ -21,6 +21,7 @@ init_project() {
 		echo "You must pass in the name of the repo to use as a template."
 		return
 	fi
+# [TODO] - Check to make sure this directory is clean before attempting to git clone
 	# hold this for later, shift off the rest
 	template="$1"
 	shift
@@ -45,5 +46,6 @@ init_project() {
 	fi
 	# if we have an initalization script, run that now
 	[ -x ".project/init" ] && .project/init $@
+# [TODO] - Rename "origin" to something like template
 }
 # vim: filetype=sh
