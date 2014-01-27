@@ -1,4 +1,4 @@
-# TODO check for a license file and license header in files
+# [TODO] - check for a license file and license header in files
 #bsd = do whatever with it but leave my copyright notice 
 #gpl = must remain free to the people you distribute to and sme applies to them 
 #agpl = same as gpl but also protect things that dont get distributed like webservices 
