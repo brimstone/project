@@ -28,14 +28,14 @@ init_project() {
 	# check for a / in the template name
 	case "$template" in
 		*/* )
-			clone_project "ssh://git@github.com/${template}.git"
+			clone_project "https://github.com/${template}.git"
 			ret=$?
 		;;
 		# else, make some guesses
 		* )
-			clone_project "ssh://git@github.com/$USER/project-${template}.git" || \
-			clone_project "ssh://git@github.com/$USER/${template}-project.git" || \
-			clone_project "ssh://git@github.com/$USER/${template}.git"
+			clone_project "https://github.com/$USER/project-${template}.git" || \
+			clone_project "https://github.com/$USER/${template}-project.git" || \
+			clone_project "https://github.com/$USER/${template}.git"
 			ret=$?
 		;;
 	esac
@@ -46,6 +46,8 @@ init_project() {
 	fi
 	# if we have an initalization script, run that now
 	[ -x ".project/init" ] && .project/init $@
+	rm -rf .project
+	rm -rf .git
 # [TODO] - Rename "origin" to something like template
 }
 # vim: filetype=sh
