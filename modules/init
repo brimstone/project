@@ -4,7 +4,7 @@ register init init_project noauto
 
 clone_project() {
 	check "Cloning from $1"
-	git clone -q "$1" . </dev/null >/dev/null 2>/dev/null
+	git clone --recursive -q "$1" . </dev/null >/dev/null 2>/dev/null
 	ret=$?
 	if [ $ret = 0 ]; then
 		pass
